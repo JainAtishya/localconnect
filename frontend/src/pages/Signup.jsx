@@ -6,6 +6,7 @@ function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("customer");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,14 +18,17 @@ function Signup() {
         {
           name,
           email,
-          password
+          password,
+          role
         }
       );
 
       alert(res.data.message);
 
     } catch (error) {
-      alert("Signup failed");
+
+      alert(error.response?.data?.message || "Signup failed");
+
     }
   };
 
@@ -38,20 +42,33 @@ function Signup() {
         <input
           type="text"
           placeholder="Name"
+          required
           onChange={(e) => setName(e.target.value)}
         />
 
         <input
           type="email"
           placeholder="Email"
+          required
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <input
           type="password"
           placeholder="Password"
+          required
           onChange={(e) => setPassword(e.target.value)}
         />
+
+        {/* Role Selection */}
+
+        <select
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+        >
+          <option value="customer">Customer</option>
+          <option value="provider">Service Provider</option>
+        </select>
 
         <button type="submit">Signup</button>
 

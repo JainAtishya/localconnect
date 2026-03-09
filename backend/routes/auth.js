@@ -5,10 +5,11 @@ const router = express.Router();
 
 const filePath = "./users.json";
 
+/* -------- SIGNUP -------- */
 
 router.post("/signup", (req, res) => {
 
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
 
   console.log("Signup request received:", req.body);
 
@@ -20,7 +21,12 @@ router.post("/signup", (req, res) => {
     return res.status(400).json({ message: "User already exists" });
   }
 
-  const newUser = { name, email, password };
+  const newUser = {
+    name,
+    email,
+    password,
+    role
+  };
 
   users.push(newUser);
 
@@ -31,6 +37,7 @@ router.post("/signup", (req, res) => {
 });
 
 
+/* -------- LOGIN -------- */
 
 router.post("/login", (req, res) => {
 
@@ -50,7 +57,8 @@ router.post("/login", (req, res) => {
       message: "Login successful",
       user: {
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: user.role
       }
     });
 
