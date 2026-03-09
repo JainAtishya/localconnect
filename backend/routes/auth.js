@@ -5,13 +5,15 @@ const router = express.Router();
 
 const filePath = "./users.json";
 
+/* -------- SIGNUP -------- */
+
 router.post("/signup", (req, res) => {
 
   const { name, email, password, role } = req.body;
 
-  console.log("Signup request received:", req.body);
+  console.log("Signup request:", req.body);
 
-  const users = JSON.parse(fs.readFileSync(filePath));
+  const users = JSON.parse(fs.readFileSync(filePath, "utf8"));
 
   const existingUser = users.find(user => user.email === email);
 
@@ -35,37 +37,26 @@ router.post("/signup", (req, res) => {
 });
 
 
+/* -------- LOGIN -------- */
 
 router.post("/login", (req, res) => {
 
   const { email, password } = req.body;
 
-  console.log("Login request received:", req.body);
-
-  const users = JSON.parse(fs.readFileSync(filePath));
+  const users = JSON.parse(fs.readFileSync(filePath, "utf8"));
 
   const user = users.find(
-    (u) => u.email === email && u.password === password
+    u => u.email === email && u.password === password
   );
 
-  if (user) {
-
-    res.json({
-      message: "Login successful",
-      user: {
-        name: user.name,
-        email: user.email,
-        role: user.role
-      }
-    });
-
-  } else {
-
-    res.status(401).json({
-      message: "Invalid credentials"
-    });
-
+  if (!user) {
+    return res.status(401).json({ message: "Invalid credentials" });
   }
+
+  res.json({
+    message: "Login successful",
+    user
+  });
 
 });
 

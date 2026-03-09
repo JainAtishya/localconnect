@@ -3,16 +3,6 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div>
-
-      {/* Navbar */}
-
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Signup</Link>
-        <Link to="/services">Services</Link>
-      </nav>
-
       {/* Hero Section */}
 
       <div className="hero">
