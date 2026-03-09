@@ -1,13 +1,37 @@
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
+
+    try {
+
+      const res = await axios.post(
+        "http://localhost:5000/api/login",
+        {
+          email,
+          password
+        }
+      );
+
+      alert(res.data.message);
+
+      // redirect to services page
+      navigate("/services");
+
+    } catch (error) {
+
+      alert("Invalid email or password");
+
+    }
   };
 
   return (
@@ -20,12 +44,14 @@ function Login() {
         <input
           type="email"
           placeholder="Email"
+          required
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <input
           type="password"
           placeholder="Password"
+          required
           onChange={(e) => setPassword(e.target.value)}
         />
 
