@@ -5,8 +5,6 @@ const router = express.Router();
 
 const filePath = "./users.json";
 
-/* -------- SIGNUP -------- */
-
 router.post("/signup", (req, res) => {
 
   const { name, email, password, role } = req.body;
@@ -37,7 +35,6 @@ router.post("/signup", (req, res) => {
 });
 
 
-/* -------- LOGIN -------- */
 
 router.post("/login", (req, res) => {
 

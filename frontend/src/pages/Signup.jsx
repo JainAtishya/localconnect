@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
 
@@ -7,6 +8,8 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("customer");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +27,9 @@ function Signup() {
       );
 
       alert(res.data.message);
+
+      // redirect to login page
+      navigate("/login");
 
     } catch (error) {
 
@@ -59,8 +65,6 @@ function Signup() {
           required
           onChange={(e) => setPassword(e.target.value)}
         />
-
-        {/* Role Selection */}
 
         <select
           value={role}
